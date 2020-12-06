@@ -26,6 +26,10 @@ Machine Learning
 
 # Credits
 this course is made by Joseph Delgadillo and Nick Germaine 
+
 https://josephdelgadillo.com
+
 https://www.udemy.com/user/nickgermaine/
+
 https://www.udemy.com/course/python-complete/
+
