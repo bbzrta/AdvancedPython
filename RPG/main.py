@@ -18,7 +18,7 @@ while True:
     if index == 0:
         dmg = player.generate_damage()
         enemy.take_damage(dmg)
-        print("You attacked for {0} points of damage. Enemy HP: {1}".format(dmg, enemy.get_hp()))
+        input("\nYou attacked for {0} points of damage. Enemy HP: {1}".format(dmg, enemy.get_hp()))
 
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + bcolors.BOLD + "You win!" + bcolors.ENDC)
