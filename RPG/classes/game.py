@@ -14,12 +14,12 @@ class bcolors:
 
 def separator(i):
     for item in range(20):
-        print(i, end="",)
+        print(i, end="", )
     print("")
 
 
 class Person:
-    def __init__(self, hp, mp, atk, df, magic):
+    def __init__(self, hp, mp, atk, df, magic, name):
         self.maxhp = hp
         self.maxmp = mp
         self.hp = hp
@@ -29,6 +29,15 @@ class Person:
         self.df = df
         self.magic = magic
         self.actions = ["Attack", "Magic"]
+        self._name = name
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        self._name = name
 
     def generate_damage(self):
         return random.randrange(self.atkl, self.atkh)
@@ -56,7 +65,7 @@ class Person:
     def get_max_mp(self):
         return self.maxhp
 
-    def get_spell_mp_name(self, i):
+    def get_spell_name(self, i):
         return self.magic[i]["name"]
 
     def get_spell_mp_cost(self, i):
@@ -71,8 +80,16 @@ class Person:
 
     def choose_magic(self):
         i = 1
-        print("Magic")
+        print("{0}\nMagic{1}".format(bcolors.OKBLUE, bcolors.ENDC))
         for spell in self.magic:
-            print("{0}:{1}  (cost:{2})".format(i, spell["name"], spell["mp"]))
+            print("{0}:{1}  (cost:{2})".format(i, spell["name"], spell["cost"]))
             i += 1
+
+    def reduce_mp(self, i):
+        self.mp -= i
+
+    def status(self):
+        separator("_")
+        print("{0} HP: {1} {2} / {3} {4}".format(self.name, bcolors.FAIL, self.get_hp(), self.maxhp, bcolors.ENDC))
+        print("{0} MP: {1} {2} / {3} {4}".format(self.name, bcolors.FAIL, self.get_mp(), self.maxmp, bcolors.ENDC))
 
