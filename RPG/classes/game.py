@@ -20,7 +20,7 @@ def separator(i):
 
 
 class Person:
-    def __init__(self, hp, mp, atk, df, magic, name):
+    def __init__(self, hp, mp, atk, df, magic, items, name):
         self.maxhp = hp
         self.maxmp = mp
         self.hp = hp
@@ -29,7 +29,8 @@ class Person:
         self.atkh = atk + 10
         self.df = df
         self.magic = magic
-        self.actions = ["Attack", "Magic"]
+        self.items = items
+        self.actions = ["Attack", "Magic", "Items"]
         self._name = name
 
     @property
@@ -67,6 +68,7 @@ class Person:
     def get_spell_mp_cost(self, i):
         return self.magic[i]["cost"]
 
+# ----------Actions----------
     def choose_action(self):
         i = 1
         print(bcolors.OKBLUE + bcolors.BOLD + "Actions" + bcolors.ENDC)
@@ -80,6 +82,14 @@ class Person:
         for x in self.magic:
             print("{0}:{1}  (cost:{2})".format(i, x.name, x.cost, x.type))
             i += 1
+
+    def choose_item(self):
+        i = 1
+        print("{0}\nItems{1}".format(bcolors.OKBLUE, bcolors.ENDC))
+        for x in self.items:
+            print("{0}:{1}  \n{2}\n".format(i, x.name, x.description, x.prop))
+            i += 1
+# ---------------------------
 
     def reduce_mp(self, i):
         self.mp -= i
