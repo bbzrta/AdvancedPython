@@ -98,4 +98,3 @@ class Person:
         separator("_")
         print("{0} HP: {1} {2} / {3} {4}".format(self.name, bcolors.FAIL, self.get_hp(), self.maxhp, bcolors.ENDC))
         print("{0} MP: {1} {2} / {3} {4}".format(self.name, bcolors.FAIL, self.get_mp(), self.maxmp, bcolors.ENDC))
-

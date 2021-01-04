@@ -15,19 +15,22 @@ cure = spell("Cure", 12, -120, "white")
 cura = spell("Cura", 18, -200, "white")
 
 # Items in the game
-potion = Item("potion", "potion", "Heals 50 HP", 50)
-hipotion = Item("Hi-Potion", "potion", "Heals 100 HP", 100)
-superpotion = Item("SuperPotion", "potion", "Heals 500 HP", 500)
-elixer = Item("Elixer", "elixer", "Fully restores HP/MP", 9999)
+potion = Item("potion", "potion", "Heals 50 HP", -50)
+hipotion = Item("Hi-Potion", "potion", "Heals 100 HP", -100)
+superpotion = Item("SuperPotion", "potion", "Heals 500 HP", -500)
+elixer = Item("Elixer", "potion", "Fully restores HP/MP", -9999)
 
 grenade = Item("Grenade", "attack", "Deals 500 Damage", 500)
+
+player_spells = [fire, thunder, blizzard, meteor, quake, cure, cura]
+player_items = [potion, hipotion, superpotion, elixer, grenade]
 
 
 # Init the player and enemy
 player_name = input("Enter your name: ")
 os.system("clear")
 
-player = Person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, quake, cure, cura], [potion, hipotion, superpotion, elixer, grenade], name=player_name)
+player = Person(460, 65, 60, 34, player_spells, player_items, name=player_name)
 enemy = Person(1200, 65, 45, 25, [], [], "Enemy")
 
 # Start of the Battle
@@ -64,12 +67,6 @@ while True:
         mgk_dmg = spell.generate_damage()
 
         current_mp = player.get_mp()
-    # If the player chose to use an item
-    elif index == 2:
-        player.choose_item()
-        itm_choice = int(input("Choose Item: ")) - 1
-
-        item = player.items[itm_choice]
 
         # If not enough magic point, block the execution.
         if spell.cost > current_mp:
@@ -88,13 +85,33 @@ while True:
             print(
                 "{0}\n{1} deals {2} healing points.{3}".format(bcolors.OKGREEN, spell.name, abs(mgk_dmg), bcolors.ENDC))
 
-            # Stopping the player HP from overloading
-            if player.hp > player.maxhp:
-                player.hp = player.maxhp
+    # If the player chose to use an item
+    elif index == 2:
+        player.choose_item()
+        itm_choice = int(input("Choose Item: ")) - 1
+
+        item = player.items[itm_choice]
+
+        if item.type == "potion":
+            player.take_damage(item.prop)
+            if item.prop > -9999:
+                print("{0}You have healed yourself by {1} points{2}"
+                      .format(bcolors.OKGREEN, abs(item.prop), bcolors.ENDC))
+            elif item.prop <= -9999:
+                print("{0}You have fully healed yourself!{1}".
+                      format(bcolors.OKGREEN, bcolors.ENDC))
+
+
+
+
+    # Stopping the player HP from overloading
+    if player.hp > player.maxhp:
+        player.hp = player.maxhp
 
     enemy_choice = 1
     enemy_dmg = enemy.generate_damage()
     player.take_damage(enemy_dmg)
+    print("enemy has done {0} damage to you!".format(enemy_dmg))
 
     # In case of a winner do:
     if enemy.get_hp() == 0:
