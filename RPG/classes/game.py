@@ -1,8 +1,8 @@
 import random
-from .magic import spell
+from .magic import Spell
 
 
-class bcolors:
+class Bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
@@ -71,24 +71,26 @@ class Person:
 # ----------Actions----------
     def choose_action(self):
         i = 1
-        print(bcolors.OKBLUE + bcolors.BOLD + "Actions" + bcolors.ENDC)
+        print(Bcolors.OKBLUE + Bcolors.BOLD + "Actions" + Bcolors.ENDC)
         for item in self.actions:
             print("{0}:{1}".format(i, item))
             i += 1
 
     def choose_magic(self):
         i = 1
-        print("{0}\nMagic{1}".format(bcolors.OKBLUE, bcolors.ENDC))
+        print("{0}\nMagic{1}".format(Bcolors.OKBLUE, Bcolors.ENDC))
         for x in self.magic:
             print("{0}:{1}  (cost:{2})".format(i, x.name, x.cost, x.type))
             i += 1
-
+        print("\n{0}{1}0: Main Menu{2}".format(Bcolors.FAIL, Bcolors.BOLD, Bcolors.ENDC))
+        
     def choose_item(self):
         i = 1
-        print("{0}\nItems{1}".format(bcolors.OKBLUE, bcolors.ENDC))
+        print("{0}\nItems{1}".format(Bcolors.OKBLUE, Bcolors.ENDC))
         for x in self.items:
             print("{0}:{1}  \n{2}\n".format(i, x.name, x.description, x.prop))
             i += 1
+        print("\n{0}{1}0: Main Menu{2}".format(Bcolors.FAIL, Bcolors.BOLD, Bcolors.ENDC))
 # ---------------------------
 
     def reduce_mp(self, i):
@@ -96,5 +98,5 @@ class Person:
 
     def status(self):
         separator("_")
-        print("{0} HP: {1} {2} / {3} {4}".format(self.name, bcolors.FAIL, self.get_hp(), self.maxhp, bcolors.ENDC))
-        print("{0} MP: {1} {2} / {3} {4}".format(self.name, bcolors.FAIL, self.get_mp(), self.maxmp, bcolors.ENDC))
+        print("{0} HP: {1} {2} / {3} {4}".format(self.name, Bcolors.FAIL, self.get_hp(), self.maxhp, Bcolors.ENDC))
+        print("{0} MP: {1} {2} / {3} {4}".format(self.name, Bcolors.FAIL, self.get_mp(), self.maxmp, Bcolors.ENDC))
